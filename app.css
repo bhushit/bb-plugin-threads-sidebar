@@ -1,0 +1,942 @@
+.ts-shell {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  color: var(--foreground);
+}
+
+.ts-shell button,
+.ts-shell a,
+.ts-menu-trigger,
+.ts-menu-item,
+.ts-sheet-item {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ts-header {
+  display: flex;
+  min-height: 1.75rem;
+  align-items: center;
+  padding: 0.15rem 0.42rem 0.08rem 0.38rem;
+}
+
+.ts-header h2 {
+  min-width: 0;
+  flex: 1;
+  color: var(--muted-foreground);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 0.9rem;
+}
+
+.ts-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.ts-header-button {
+  display: grid;
+  width: 1.45rem;
+  height: 1.45rem;
+  place-items: center;
+  border-radius: calc(var(--radius) - 3px);
+  color: var(--muted-foreground);
+}
+
+.ts-header-button:hover,
+.ts-header-button:focus-visible,
+.ts-header-button[data-state="open"] {
+  background: color-mix(in srgb, var(--foreground) 8%, transparent);
+  color: var(--foreground);
+  outline: none;
+}
+
+.ts-controls {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  gap: 0.25rem;
+  padding: 0.4rem 0.5rem 0.25rem;
+  background: var(--background);
+}
+
+.ts-controls label {
+  min-width: 0;
+}
+
+.ts-controls label > span {
+  display: block;
+  padding-left: 0.15rem;
+  color: var(--muted-foreground);
+  font-size: 0.625rem;
+  line-height: 0.85rem;
+}
+
+.ts-controls select,
+.ts-project-filter select {
+  width: 100%;
+  min-width: 0;
+  appearance: none;
+  border: 0;
+  border-radius: calc(var(--radius) - 3px);
+  background: color-mix(in srgb, var(--muted) 62%, transparent);
+  padding: 0.28rem 0.35rem;
+  color: var(--foreground);
+  font-size: 0.7rem;
+  line-height: 1rem;
+  outline: none;
+}
+
+.ts-controls select:focus,
+.ts-project-filter select:focus,
+.ts-rename:focus {
+  box-shadow: 0 0 0 1px var(--ring);
+}
+
+.ts-archive-toggle {
+  align-self: end;
+  display: grid;
+  width: 1.7rem;
+  height: 1.7rem;
+  place-items: center;
+  border-radius: calc(var(--radius) - 3px);
+  color: var(--muted-foreground);
+}
+
+.ts-archive-toggle:hover,
+.ts-archive-toggle[data-active] {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.ts-project-filter {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0.5rem 0.4rem;
+  color: var(--muted-foreground);
+}
+
+.ts-project-filter select {
+  background: transparent;
+  padding-left: 0;
+  font-size: 0.72rem;
+}
+
+.ts-sections {
+  padding: 0 0.22rem 0.75rem;
+}
+
+.ts-section + .ts-section {
+  margin-top: 0.3rem;
+}
+
+.ts-section-header {
+  display: flex;
+  width: 100%;
+  min-height: 1.75rem;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.23rem 0.22rem 0.23rem 0.04rem;
+  border-radius: calc(var(--radius) - 3px);
+  color: var(--muted-foreground);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+.ts-section-header:hover {
+  background: color-mix(in srgb, var(--foreground) 6%, transparent);
+  color: var(--foreground);
+}
+
+.ts-section-header[data-tone="attention"] {
+  color: var(--muted-foreground);
+}
+
+.ts-count {
+  margin-left: auto;
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.6;
+}
+
+.ts-subgroup {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: calc(var(--radius) - 4px);
+  padding: 0.18rem 0.25rem 0.12rem 0.38rem;
+  color: var(--muted-foreground);
+  font-size: 0.66rem;
+  line-height: 0.9rem;
+  text-align: left;
+}
+
+.ts-subgroup:hover {
+  color: var(--foreground);
+}
+
+.ts-row-wrap {
+  min-width: 0;
+}
+
+.ts-row {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 1.75rem;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: calc(var(--radius) - 2px);
+  padding: 0.2rem 0.25rem;
+  color: var(--foreground);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.ts-row:hover,
+.ts-row:focus-visible {
+  background: color-mix(in srgb, var(--foreground) 7%, transparent);
+  outline: none;
+}
+
+.ts-row[data-active] {
+  background: color-mix(in srgb, var(--foreground) 10%, transparent);
+  color: var(--foreground);
+}
+
+.ts-status {
+  position: relative;
+  display: grid;
+  flex: 0 0 auto;
+  width: 1.1rem;
+  place-items: center;
+}
+
+.ts-provider-mark {
+  position: relative;
+  display: grid;
+  width: 0.9rem;
+  height: 0.9rem;
+  place-items: center;
+  color: color-mix(in srgb, var(--muted-foreground) 80%, transparent);
+}
+
+.ts-provider-logo {
+  display: block;
+  width: 0.9rem;
+  height: 0.9rem;
+  background: currentColor;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+
+.ts-status-corner {
+  position: absolute;
+  right: -0.2rem;
+  bottom: -0.18rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1px solid var(--background);
+  border-radius: 999px;
+  background: var(--background);
+}
+
+svg.ts-status-corner {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.ts-unread-dot {
+  display: block;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: var(--muted-foreground);
+}
+
+.ts-working-dot {
+  display: block;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--foreground) 70%, transparent);
+}
+
+.ts-attention {
+  box-sizing: border-box;
+  width: 1.1rem;
+  height: 1.1rem;
+  padding: 0.11rem;
+  border-radius: 999px;
+  color: var(--attention-foreground, var(--background));
+  background: var(--attention, var(--warning));
+}
+
+.ts-attention.ts-status-corner {
+  width: 0.95rem;
+  height: 0.95rem;
+  right: -0.34rem;
+  bottom: -0.32rem;
+  padding: 0.08rem;
+  border: 2px solid var(--background);
+  background: var(--attention, var(--warning));
+}
+
+.ts-running {
+  animation: ts-pulse 2.6s ease-in-out infinite;
+}
+
+.ts-row-main {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.ts-title {
+  overflow: hidden;
+  font-size: 0.77rem;
+  line-height: 1.1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ts-subtitle {
+  overflow: hidden;
+  color: var(--muted-foreground);
+  font-size: 0.61rem;
+  line-height: 0.78rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ts-rename {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  border-radius: 3px;
+  background: var(--background);
+  padding: 0 0.2rem;
+  color: var(--foreground);
+  font-size: 0.77rem;
+  line-height: 1.1rem;
+  outline: none;
+}
+
+.ts-fork-badge,
+.ts-pr-badge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.12rem;
+  border-radius: calc(var(--radius) - 4px);
+  background: transparent;
+  padding: 0.06rem 0.12rem;
+  color: var(--muted-foreground);
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 0.85rem;
+  text-decoration: none;
+}
+
+.ts-pr-badge {
+  max-width: 5rem;
+  overflow: hidden;
+  transition:
+    max-width 120ms ease,
+    padding 120ms ease,
+    opacity 90ms ease;
+}
+
+.ts-fork-badge:hover,
+.ts-pr-badge:hover {
+  background: color-mix(in srgb, var(--foreground) 8%, transparent);
+  color: var(--foreground);
+}
+
+.ts-pr-badge {
+  color: var(--muted-foreground);
+}
+
+.ts-pr-badge[data-attention="ready_to_merge"],
+.ts-pr-badge[data-state="merged"] {
+  color: var(--success-foreground, var(--success));
+}
+
+.ts-pr-badge[data-attention="blocked"],
+.ts-pr-badge[data-attention="checks_failed"],
+.ts-pr-badge[data-attention="conflicts"] {
+  color: var(--destructive);
+}
+
+.ts-pr-badge[data-attention="changes_requested"] {
+  color: var(--warning-foreground, var(--warning));
+}
+
+.ts-pr-badge[data-attention="checks_pending"],
+.ts-pr-badge[data-attention="review_requested"] {
+  color: var(--attention, var(--warning));
+}
+
+.ts-unread {
+  flex: 0 0 auto;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: var(--primary);
+}
+
+.ts-menu-trigger {
+  display: grid;
+  flex: 0 0 auto;
+  width: 0;
+  height: 1.5rem;
+  place-items: center;
+  border-radius: calc(var(--radius) - 4px);
+  color: var(--muted-foreground);
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    width 120ms ease,
+    opacity 90ms ease;
+}
+
+.ts-row:hover .ts-menu-trigger,
+.ts-row:focus-within .ts-menu-trigger,
+.ts-menu-trigger:focus-visible,
+.ts-menu-trigger[data-state="open"] {
+  width: 1.5rem;
+  opacity: 1;
+}
+
+/*
+ * Touch has no hover/focus-within to reveal the trigger, so keep it a visible,
+ * full-size tap target on compact viewports — otherwise taps fall through to
+ * the row and the menu never opens.
+ */
+@media (hover: none), (max-width: 767px) {
+  .ts-menu-trigger {
+    width: 2.25rem;
+    height: 2.25rem;
+    opacity: 1;
+  }
+}
+
+.ts-row:hover .ts-pr-badge,
+.ts-row:focus-within .ts-pr-badge {
+  max-width: 0;
+  padding-right: 0;
+  padding-left: 0;
+  opacity: 0;
+}
+
+@media (hover: none), (max-width: 767px) {
+  .ts-pr-badge {
+    max-width: 0;
+    padding-right: 0;
+    padding-left: 0;
+    opacity: 0;
+  }
+}
+
+.ts-menu-trigger:hover {
+  background: color-mix(in srgb, var(--foreground) 7%, transparent);
+  color: var(--foreground);
+}
+
+.ts-menu {
+  z-index: 80;
+  min-width: 10rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--popover);
+  padding: 0.25rem;
+  color: var(--popover-foreground);
+  box-shadow: 0 8px 24px color-mix(in srgb, black 35%, transparent);
+}
+
+.ts-view-menu {
+  width: 12.5rem;
+  max-height: min(28rem, 70vh);
+  overflow-y: auto;
+}
+
+.ts-project-menu {
+  width: 15rem;
+  max-height: min(28rem, 70vh);
+  overflow-y: auto;
+}
+
+.ts-menu-label {
+  padding: 0.38rem 0.48rem 0.25rem;
+  color: var(--muted-foreground);
+  font-size: 0.67rem;
+  font-weight: 500;
+}
+
+.ts-radio-item,
+.ts-project-item {
+  justify-content: space-between;
+}
+
+.ts-radio-dot {
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: var(--foreground);
+}
+
+.ts-current-project {
+  margin-left: auto;
+  color: var(--muted-foreground);
+  font-size: 0.66rem;
+}
+
+.ts-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: calc(var(--radius) - 3px);
+  padding: 0.375rem 0.5rem;
+  font-size: 0.75rem;
+  outline: none;
+  cursor: default;
+}
+
+.ts-menu-item[data-highlighted] {
+  background: color-mix(in srgb, var(--foreground) 8%, transparent);
+  color: var(--foreground);
+}
+
+.ts-menu-item[data-disabled] {
+  opacity: 0.5;
+}
+
+.ts-menu-separator {
+  height: 1px;
+  margin: 0.2rem;
+  background: var(--border);
+}
+
+.ts-sheet-menu {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.ts-sheet-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0.25rem 0.5rem 0.75rem;
+}
+
+.ts-sheet-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  border-radius: var(--radius);
+  padding: 0.85rem 0.75rem;
+  color: var(--popover-foreground);
+  font-size: 1rem;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.ts-sheet-item:active {
+  background: color-mix(in srgb, var(--foreground) 8%, transparent);
+}
+
+.ts-sheet-item:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.ts-sheet-item-divide {
+  margin-top: 0.25rem;
+  border-top: 1px solid var(--border);
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding-top: 1rem;
+}
+
+.ts-dialog-overlay {
+  position: fixed;
+  z-index: 90;
+  inset: 0;
+  background: color-mix(in srgb, black 48%, transparent);
+}
+
+.ts-dialog {
+  position: fixed;
+  z-index: 91;
+  top: 50%;
+  left: 50%;
+  width: min(32rem, calc(100vw - 2rem));
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--popover);
+  padding: 1rem;
+  color: var(--popover-foreground);
+  box-shadow: 0 14px 36px color-mix(in srgb, black 28%, transparent);
+}
+
+.ts-dialog-close {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  display: grid;
+  width: 1.6rem;
+  height: 1.6rem;
+  place-items: center;
+  border-radius: calc(var(--radius) - 3px);
+  color: var(--muted-foreground);
+}
+
+.ts-dialog-close:hover {
+  background: color-mix(in srgb, var(--foreground) 7%, transparent);
+  color: var(--foreground);
+}
+
+.ts-dialog-title {
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.ts-dialog-description {
+  margin: 0.18rem 0 0.85rem;
+  color: var(--muted-foreground);
+  font-size: 0.72rem;
+}
+
+.ts-machine-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 3px);
+  background: var(--background);
+}
+
+.ts-machine-dot {
+  position: absolute;
+  left: 0.8rem;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: var(--success);
+  pointer-events: none;
+}
+
+.ts-machine-select select {
+  width: 100%;
+  appearance: auto;
+  border: 0;
+  background: transparent;
+  padding: 0.52rem 0.6rem 0.52rem 1.55rem;
+  color: var(--foreground);
+  font-size: 0.75rem;
+  outline: none;
+}
+
+.ts-path-browser {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 3px);
+}
+
+.ts-path-toolbar {
+  display: flex;
+  min-height: 2.25rem;
+  align-items: center;
+  gap: 0.15rem;
+  border-bottom: 1px solid var(--border);
+  padding: 0.22rem 0.35rem;
+}
+
+.ts-path-toolbar > button,
+.ts-new-folder-row button {
+  display: grid;
+  flex: 0 0 auto;
+  width: 1.65rem;
+  height: 1.65rem;
+  place-items: center;
+  border-radius: calc(var(--radius) - 4px);
+  color: var(--muted-foreground);
+}
+
+.ts-path-toolbar > button:hover,
+.ts-new-folder-row button:hover {
+  background: color-mix(in srgb, var(--foreground) 7%, transparent);
+  color: var(--foreground);
+}
+
+.ts-path-toolbar > button:disabled {
+  opacity: 0.35;
+}
+
+.ts-path-toolbar > input,
+.ts-new-folder-row input {
+  min-width: 0;
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 4px);
+  background: var(--background);
+  padding: 0.28rem 0.4rem;
+  color: var(--foreground);
+  font-size: 0.72rem;
+  outline: none;
+}
+
+.ts-breadcrumbs {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  overflow-x: auto;
+  white-space: nowrap;
+  color: var(--muted-foreground);
+}
+
+.ts-breadcrumbs > button {
+  border-radius: 3px;
+  padding: 0.1rem 0.2rem;
+  font-size: 0.68rem;
+}
+
+.ts-breadcrumbs > button:last-child {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.ts-breadcrumbs > button:hover {
+  background: color-mix(in srgb, var(--foreground) 7%, transparent);
+}
+
+.ts-directory-list {
+  height: 14rem;
+  overflow-y: auto;
+  padding: 0.3rem;
+}
+
+.ts-directory-row {
+  display: flex;
+  width: 100%;
+  min-height: 1.75rem;
+  align-items: center;
+  gap: 0.48rem;
+  border-radius: calc(var(--radius) - 4px);
+  padding: 0.25rem 0.4rem;
+  color: var(--foreground);
+  font-size: 0.74rem;
+  text-align: left;
+}
+
+.ts-directory-row > span {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+button.ts-directory-row:hover {
+  background: color-mix(in srgb, var(--foreground) 8%, transparent);
+}
+
+.ts-directory-row > svg {
+  flex: 0 0 auto;
+  color: var(--muted-foreground);
+}
+
+.ts-file-row {
+  color: var(--muted-foreground);
+}
+
+.ts-new-folder-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.35rem 0.35rem;
+  color: var(--muted-foreground);
+}
+
+.ts-browser-state {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  color: var(--muted-foreground);
+  font-size: 0.72rem;
+  text-align: center;
+}
+
+.ts-derived-name {
+  margin-top: 0.75rem;
+  color: var(--muted-foreground);
+  font-size: 0.72rem;
+}
+
+.ts-derived-name strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.ts-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.ts-dialog-button {
+  border-radius: calc(var(--radius) - 3px);
+  padding: 0.38rem 0.65rem;
+  color: var(--foreground);
+  font-size: 0.72rem;
+}
+
+.ts-dialog-button:hover {
+  background: color-mix(in srgb, var(--foreground) 7%, transparent);
+}
+
+.ts-dialog-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.ts-dialog-primary:hover {
+  background: color-mix(in srgb, var(--primary) 88%, var(--foreground));
+}
+
+.ts-dialog-button:disabled {
+  opacity: 0.5;
+}
+
+.ts-state {
+  margin: 0.5rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 0.6rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+@keyframes ts-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ts-running {
+    animation: none;
+  }
+}
+
+/*
+ * Touch sizing. On coarse pointers / narrow viewports, grow rows, controls,
+ * and menu items into comfortable ~40–44px tap targets, enlarge readable text,
+ * and make the actionable attention glyph clearly visible.
+ */
+@media (hover: none), (max-width: 767px) {
+  .ts-row {
+    min-height: 2.6rem;
+    gap: 0.55rem;
+    padding: 0.35rem 0.45rem;
+  }
+
+  .ts-title {
+    font-size: 0.9rem;
+    line-height: 1.25rem;
+  }
+
+  .ts-subtitle {
+    font-size: 0.72rem;
+    line-height: 0.95rem;
+  }
+
+  .ts-header-button,
+  .ts-archive-toggle {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+  .ts-section-header {
+    min-height: 2.35rem;
+    font-size: 0.8rem;
+  }
+
+  .ts-subgroup {
+    min-height: 2.1rem;
+    font-size: 0.8rem;
+  }
+
+  .ts-count {
+    font-size: 0.72rem;
+  }
+
+  .ts-menu-item {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.9rem;
+    gap: 0.6rem;
+  }
+
+  .ts-menu-label {
+    font-size: 0.8rem;
+  }
+
+  .ts-controls select,
+  .ts-project-filter select {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.5rem;
+    line-height: 1.15rem;
+  }
+
+  .ts-fork-badge {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.4rem;
+  }
+
+  .ts-attention {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .ts-attention.ts-status-corner {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .ts-directory-row {
+    min-height: 2.6rem;
+    font-size: 0.9rem;
+  }
+
+  .ts-path-toolbar > button,
+  .ts-new-folder-row button {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+}
